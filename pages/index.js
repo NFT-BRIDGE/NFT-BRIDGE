@@ -1,68 +1,51 @@
-/* eslint-disable @next/next/no-img-element */
-// Next, React
-import Head from "next/head"
-import { useState, useEffect } from "react"
-import styles from "../styles/Home.module.css"
+import {
+    AboutUs,
+    Button,
+    Collections,
+    Container,
+    FAQ,
+    FeaturedArtworks,
+    Footer,
+    Hero,
+    Navbar,
+    Sponsor,
+    TopCreator,
 
-// Dfinity
-import { makeHelloActor } from "../ui/service/actor-locator"
-const hello = makeHelloActor()
 
-function HomePage() {
-    const [name, setName] = useState("")
-    const [loading, setLoading] = useState("")
-    const [greetingMessage, setGreetingMessage] = useState("")
+} from '/components';
+import React from 'react';
+import { Reveal } from 'react-awesome-reveal';
+import { fadeInDownShorter } from '/keyframes';
 
-    function onChangeName(e) {
-        const newName = e.target.value
-        setName(newName)
-    }
-
-    async function sayGreeting() {
-        setGreetingMessage("")
-        setLoading("Loading...")
-
-        const greeting = await hello.greet(name)
-
-        setLoading("")
-        setGreetingMessage(greeting)
-    }
-
+const Home = () => {
     return (
-        <div className={styles.container}>
-            <Head>
-                <title>Internet Computer</title>
-            </Head>
-            <main className={styles.main}>
-                <h3 className={styles.title}>
-                    Welcome to Next.js Internet Computer Starter Template!
-                </h3>
+        <div className='h-full main_bg text-white overflow-hidden' id='top'>
+            <Navbar />
+            <Hero />
+            <Sponsor />
+            <AboutUs />
+            <Collections />
+            <FeaturedArtworks />
+            <TopCreator />
+            <FAQ />
+            <Container>
+                <div
+                    className={
+                        'bg-gradient-to-b from-[#B75CFF] to-[#671AE4] rounded-xl py-20 px-10 flex items-center justify-center shadow-lg flex-col mb-44'
+                    }
+                >
+                    <h2 className='font-bold text-2xl sm:text-4xl lg:text-5xl mb-5 w-full md:w-2/5 leading-snug text-center'>
+                        Explore our sneaker NFTs available.
+                    </h2>
+                    <Reveal delay={200} duration={1000} keyframes={fadeInDownShorter}>
+                        <Button>Get Started</Button>
+                    </Reveal>
+                </div>
+            </Container>
+            <Footer />
 
-                <img
-                    src="/logo.png"
-                    alt="DFINITY logo"
-                    className={styles.logo}
-                />
-
-                <section>
-                    <label htmlFor="name">Enter your name: &nbsp;</label>
-                    <input
-                        id="name"
-                        alt="Name"
-                        type="text"
-                        value={name}
-                        onChange={onChangeName}
-                    />
-                    <button onClick={sayGreeting}>Send</button>
-                </section>
-                <section>
-                    <label>Response: &nbsp;</label>
-                    {loading}
-                    {greetingMessage}
-                </section>
-            </main>
         </div>
-    )
-}
+    );
+};
 
-export default HomePage
+export default Home;
